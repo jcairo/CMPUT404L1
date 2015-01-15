@@ -10,13 +10,12 @@ class Student(object):
         self.course_marks[course] = mark
 
     def average(self):
+        if len(self.course_marks) < 1:
+            raise ZeroDivisionError("Student has taken no classes")
         marks_total = 0
         for mark in self.course_marks.values():
             marks_total += mark
-        if len(self.course_marks) > 0:
-            return marks_total/len(self.course_marks)
-        else:
-            return None
+        return marks_total/len(self.course_marks)
 
 class StudentTests(unittest.TestCase):
 
@@ -30,7 +29,6 @@ class StudentTests(unittest.TestCase):
         self.student.addCourseMark('CMPUT391', 4)
         self.student.addCourseMark('CMPUT301', 4)
         self.assertTrue(self.student.average() == 4, "Average should be 4")
-
 
 def main():
     unittest.main()
